@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% block right %}
+    <table cellpadding="9" cellspacing="0" border="1" style="width:1000px;">
+        <form action="/archive/teachInfoMt/" method="post">
+            {% csrf_token %}
+            <td colspan=6 align="center">
+                请输入查询条件：<select name="qconditon" id="">
+                <option value="tname">姓名</option>
+                <option value="tcourse">授课专业</option>
+                <option value="tidnum">身份证</option>
+            </select>
+                &emsp;<input type="text" name="condition">
+                <input type="submit" value="查询" style="margin-top: -10px">
+            </td>
+            </tr>
+        </form>
+        <tr align="center">
+            <td> 教师编号</td>
+            <td> 姓名</td>
+            <td> 性别</td>
+            <td> 身份证</td>
+            <td> 授课专业</td>
+            <td> 维护</td>
+        </tr>
+        {% for teacher in teacher %}
+            {% if teacher == '' %}
+                <tr align="center" style="display: none">
+                    {% elif teacher != '' %}
+                <tr align="center">
+            {% endif %}
+        <td> {{ teacher.tid }}</td>
+        <td> {{ teacher.tname }}</td>
+        <td> {{ teacher.gender }}</td>
+        <td> {{ teacher.idnum }}</td>
+        <td> {{ teacher.mid.mname }}</td>
+        <td><a href="/archive/teachInfo/update/?id={{ teacher.tid }}"><input type="button" value="更改"></a></td>
+        </tr>
+        {% endfor %}
+
+    </table>
+{% endblock %}

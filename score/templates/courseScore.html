@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% block right %}
+    <div style="width: 98% ;margin-top: 50px;text-align: center" >
+        <form action="/score/courseScore/" method="post">
+             {% csrf_token %}
+            <p>
+                课程：<select name="sel" id="">
+                <option value="">请选择课程</option>
+                {% for curname in cur_list %}
+
+                <option value="{{ curname }}">{{ curname }}</option>
+
+                {% endfor %}
+
+            </select>
+                &emsp;考试类别：<input type="text" name="examtype" width="20px">
+                &emsp;考试日期：<input type="date" name="examdate" width="20px">
+                <input type="submit" value="查询">
+            </p>
+                    <hr style="border: 0.5px solid">
+
+            <table border="1px" cellpadding="9px" cellspacing="0px" width="68%" align="center">
+                <tr>
+                    <td>学生姓名</td>
+                    <td>学生班级</td>
+                    <td>考试类别</td>
+                    <td>考试日期</td>
+                    <td>学生成绩</td>
+                </tr>
+                {% for c in cc %}
+                    <tr>
+                        <td>{{ c.sid.sid.sname }}</td>
+                        <td>{{ c.sid.sid.cname.cname }}</td>
+                        <td>{{ c.curid.examtype }}</td>
+                        <td>{{ c.curid.examdate|date:'Y-m-d' }}</td>
+                        <td>{{ c.score }}</td>
+                    </tr>
+                {% endfor %}
+            </table>
+
+        </form>
+
+    </div>
+{% endblock %}

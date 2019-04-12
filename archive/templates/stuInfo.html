@@ -1,0 +1,97 @@
+{% extends 'base.html' %}
+{% block head %}
+    <script type="text/javascript">
+        function checkId() {
+            var id = $('#sid').val()
+            if (id == ''){
+                alert('编号不能空')
+            }
+        }
+    </script>
+    <script type="text/javascript">
+        function checkIn() {
+{#            alert(typeof $('#checkIn').serialize());#}
+            $.ajax({
+            //几个参数需要注意一下
+                type: "POST",//方法类型
+                dataType: "json",//预期服务器返回的数据类型
+                url: "/archive/stuInfo/" ,//url
+                data: $('#checkIn').serialize(),
+
+                success: function (result) {
+{#                    console.log(result.key);#}
+{#                    console.log('111111');#}
+{#                    console.log(result);//打印服务端返回的数据(调试用)#}
+                    if (result.key == 1) {
+                        alert("添加成功(*^▽^*)");
+                    }
+                   else {
+                        alert("修改成功！")
+                    }
+                    ;
+                },
+                error : function() {
+                    alert("查无此人");
+                }
+            });
+        }
+    </script>
+{% endblock %}
+{% block right %}
+    <table cellpadding="9" cellspacing="0">
+        <form id="checkIn">
+        {% csrf_token %}
+            <tr>
+                <td>
+                <p style="display: inline;color:red" >学生班级&emsp;</p>
+                    <select name="sclass" >
+                        <option value="">请选择班级</option>
+                        {% for cls in Clazz %}
+                            <option value={{ cls.cid }}>{{ cls.cname }}</option>
+                        {% endfor %}
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>学生编号&emsp;<input type="text" name="sid" onblur="checkId();" id="sid"></td>
+                <td> 学生姓名&emsp;<input type="text" name="sname" id="sname"></td>
+            </tr>
+            <tr>
+                <td>
+                    学生性别&emsp;
+                    <input type="radio" name="gender" id="sgender" value="男">男
+                    <input type="radio" name="gender" id="sgender" value="女">女
+                </td>
+                <td>学生年龄&emsp;<input type="text" name="sage"></td>
+            </tr>
+            <tr>
+                <td>身份证号&emsp;<input type="text" name="sidnum"></td>
+                <td> 出生日期&emsp;<input type="date" name="sbirthdate"></td>
+            </tr>
+            <tr>
+                <td> 家庭地址&emsp;<input type="text" name="saddress">
+                </td>
+                <td>家庭电话&emsp;<input type="text" name="sphone"></td>
+            </tr>
+            <tr>
+                <td>政治面貌
+                    <select name="sstatus" style="width:84px;">
+                        <option value="党员">党员</option>
+                        <option value="共青团员">共青团员</option>
+                        <option value="群众">群众</option>
+                    </select>
+                    健康状况
+                    <select name="shealth" style="width:84px">
+                        <option value="优">优</option>
+                        <option value="良">良</option>
+                        <option value="差">差</option>
+                    </select>
+                </td>
+                <td>
+                    <input type="button" value="提交" onclick="checkIn();">
+                    <input type="reset" value="重置">
+                </td>
+            </tr>
+        </form>
+    </table>
+{% endblock %}

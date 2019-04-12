@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block right %}
+     <form action="/user/userAdd/" method="post">
+        {% csrf_token %}
+        <div style="text-align: center ;font-size: 23px">
+            <br><br><br><br><br><br>
+            <p>登陆账号:<input type="text" name="sid"></p><br>
+            <p>登陆密码:<input type="text" name="spwd"></p><br>
+            <p>昵&emsp;&emsp;称:<input type="text" name="sname"></p><br>
+            <input type="submit"  name="tj" value="提交">&nbsp;&nbsp;&nbsp;&nbsp;
+                <input type="reset" value="重置">
+        </div>
+    </form>
+{% endblock %}

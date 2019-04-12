@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block right %}
+    <form action="" method="post" style="margin-top: 10%">
+    {% csrf_token %}
+    <table cellpadding="9" cellspacing="0" align="center" style="text-align: center">
+        <tr>
+            <td>
+                请输入查询条件：&emsp;<select name="select">
+                <option>书名</option>
+                <option>书号</option>
+            </select>
+                <input type="text">
+            </td>
+            <td> <input type="submit" value="提交" style="margin-top:-10px"></td>
+        </tr>
+    </table>
+    </form>
+    <form>
+    {% csrf_token %}
+        <table border="2" cellspacing="0" cellpadding="9" align="center" style="text-align: center;width: 50%">
+            <tr>
+                <td>书号</td>
+                <td>书名</td>
+                <td>出版社</td>
+                <td>单价</td>
+                <td>库存</td>
+                <td>维护</td>
+            </tr>
+            <tr>
+                <td>02</td>
+                <td>水浒传</td>
+                <td>人民出版社</td>
+                <td>100.00</td>
+                <td>100</td>
+                <td><input type="submit" value="更改"></td>
+            </tr>
+        </table>
+    </form>
+{% endblock %}

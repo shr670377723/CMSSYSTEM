@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% block right %}
+    <script type="text/javascript">
+        function testQery() {
+            var tid = document.getElementById('tid');
+            if(tid.value==''){
+                alert('编号不能为空');
+                return false
+            }
+            return true
+        }
+    </script>
+<div align="center" style="margin-top: 50px">
+    <form action="/score/teachCur/" method="get">
+        {% csrf_token %}
+            <table cellspacing="0" cellpadding="9px" >
+                <tr >
+                    <td colspan="6">
+                        教师编号：<input type="text" name="tid" id="tid" onblur="return testQery()">
+                        教师姓名：<input type="text" name="tname">
+                        <input type="submit" value="查询" onclick="return testQery()">
+                    </td>
+                </tr>
+            </table>
+    </form>
+        <hr style="border: 0.5px solid">
+
+    <form action="/score/teachCur/" method="post">
+         <input type="hidden" value="{{ tid }}" name="tid">
+                    {% csrf_token %}
+        <table cellspacing="0" cellpadding="9px" border="1px" width="65%" >
+            <tr>
+                <td>课程编号</td>
+                <td>课程名称</td>
+                <td>考试时间</td>
+                <td>考试类型</td>
+                <td>操作</td>
+            </tr>
+            {% for cur in courses %}
+            <tr>
+                <td>{{ cur.curid }}</td>
+                <td>{{ cur.curname }}</td>
+                <td>{{ cur.examdate }}</td>
+                <td>{{ cur.examtype }}</td>
+                <td><input type="checkbox" name="ccourse" value="{{ cur.curid }}"></td>
+            </tr>
+            {% endfor %}
+
+        </table>
+        <hr>
+        <input type="submit" value="提交">
+    </form>
+</div>
+{% endblock %}

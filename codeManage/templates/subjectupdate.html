@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block right %}
+<form action="" method="post" style="margin-top: 2%">
+{% csrf_token %}
+    <table align="center" style="text-align: center" border="2" cellpadding="9" cellspacing="0">
+
+        <tr>
+            <td>学科代码</td>
+            <td><input type="text" name="curid" value="{{all.curid}}"></td>
+        </tr>
+        <tr>
+            <td>学科名称</td>
+            <td><input type="text" name="curname" value="{{ all.curname }}"></td>
+        </tr>
+         <tr>
+            <td>考试时间</td>
+            <td><input type="date" name="examdate" value="{{ all.examdate }}"></td>
+        </tr>
+        <tr>
+            <td>操作</td>
+            <td >
+                <input type="reset" value="重置">
+                <input type="submit" value="提交">
+            </td>
+
+        </tr>
+    </table>
+</form>
+{% endblock %}

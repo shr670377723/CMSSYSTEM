@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block right %}
+    <form action="" method="post">
+    {% csrf_token %}
+        <br><br><br><br><br><br><br>
+      <div  align="center" >
+            请输入查询条件:
+            <select name="sel" id="">
+            <option value="stuid" name="stuid">登陆账号</option>
+            <option value="sname" name="sname">昵称</option>
+            </select>
+            <input type="text" name="all">
+            <input type="submit" value="搜索">
+            
+          <table border="1px" width="60%" style="text-align: center">
+              <tr>
+                  <td>登陆账号</td>
+                  <td>昵称</td>
+                  <td>维护</td>
+              </tr>
+            {% for log in login %}
+              <tr>
+                  <td>{{ log.uaccount }}</td>
+                  <td>{{ log.uname }}</td>
+                  <td><a href="/user/userQuery/1/?qwert={{ log.uaccount}}"><input type="button" value="删除"></a></td>
+              </tr>
+            {% endfor %}
+          </table>
+      </div>
+    
+        
+    </form>
+{% endblock %}

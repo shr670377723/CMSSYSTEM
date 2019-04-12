@@ -1,0 +1,70 @@
+
+{% extends 'base.html' %}
+{% block right %}
+    <table cellpadding="9" cellspacing="0" style="margin-left: 30%;">
+        <form action="/archive/teachInfo/" method="post">
+        {% csrf_token %}
+            <tr>
+                <td>教师姓名&emsp;<input type="text" name="tname" value={{ teacher.tname }} ></td>
+                <td> 年龄&emsp;&emsp;&emsp;<input type="text" name="tage" value="{{ teacher.age }}"></td>
+            </tr>
+            <tr>
+                <td>
+                    性别&emsp;&emsp;&emsp;
+                    {% if teacher.gender == '男' %}
+                        <input type="radio" name="gender" checked value="男">男
+                        <input type="radio" name="gender"  value="女">女
+                    {% else %}
+                        <input type="radio" name="gender"  value="男">男
+                        <input type="radio" name="gender" checked value="女">女
+                    {% endif %}
+                </td>
+                <td>婚否&emsp;&emsp;&emsp;
+                    {% if teacher.married == '已婚' %}
+                        <input type="radio" name="marry" checked value="已婚">已婚
+                        <input type="radio" name="marry"  value="未婚">未婚
+                    {% else %}
+                        <input type="radio" name="marry"  value="已婚">已婚
+                        <input type="radio" name="marry" checked value="未婚">未婚
+                    {% endif %}
+                </td>
+            </tr>
+            <tr>
+                <td>政治面貌&emsp;<input type="text" name="status" value={{ teacher.politicstatus }}></td>
+                <td> 民族&emsp;&emsp;&emsp;<input type="text" name="nation" value={{ teacher.nation }}></td>
+            </tr>
+            <tr>
+                <td> 学历&emsp;&emsp;&emsp;<input type="text" name="edbackground" value={{ teacher.edu }}></td>
+                <td>出生日期&emsp;<input type="date" name="birthday" value={{ teacher.birthdate|date:'Y-m-d' }}></td>
+            </tr>
+            <tr>
+                <td> 身份证号&emsp;<input type="text" name="tidnum" value={{ teacher.idnum }}></td>
+                <td>联系电话&emsp;<input type="text" name="tphone" value="{{ teacher.tel }}"></td>
+            </tr>
+            <tr>
+                 <td> 工作日期&emsp;<input type="date" name="tdate" Value={{ teacher.workdate|date:'Y-m-d' }}></td>
+                <td>授课专业&emsp;
+                    <select name="tcourse" style="width:84px;">
+                        {% for m in major %}
+                            {% if teacher.mid.mid == m.mid %}
+                            <option value={{ m.mid }} selected='selected'>{{ m.mname }}</option>
+                            {% else %}
+                            <option value={{ m.mid }}>{{ m.mname }}</option>
+                            {% endif %}
+                        {% endfor %}
+                    </select>
+                </td>
+                <tr>
+                    <td>
+                        工作简介&emsp;
+                        <input type="text" name="work"  value={{ teacher.description }} style="height: 120px;width: 400px;">
+                    </td>
+                </tr>
+                <td align="center">
+                    <button type="submit">提交</button>
+                    <button type="reset">重置</button>
+                </td>
+            </tr>
+        </form>
+    </table>
+{% endblock %}

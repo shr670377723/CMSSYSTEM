@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% block right %}
+{#    {{ login }}#}
+{#{% login %}#}
+    <form action="/teacher/teachQuery/" method="post">
+    {% csrf_token %}
+        <br><br><br><br><br><br><br>
+      <div  align="center"  >
+            请输入查询条件:
+            <select name="sel" id="">
+            <option value="curid" name="curid">任职科目</option>
+            <option value="tname" name="tname">教师姓名</option>
+            </select>
+            <input type="text" name="all">
+            <input type="submit" value="搜索">
+{#            <input type="checkbox">查询历史记录#}
+          <table border="1px" width="60%" style="text-align: center;font-size: 18px">
+              <tr>
+                  <td>教师编号</td>
+                  <td>教师姓名</td>
+                  <td>性别</td>
+                  <td>任职日期</td>
+                  <td>任职科目</td>
+                  <td>维护</td>
+              </tr>
+            {% for teach in teachid %}
+
+              <tr>
+                  <td>{{ teach.tid }}</td>
+                  <td>{{ teach.tname }}</td>
+                  <td>{{ teach.gender }}</td>
+                  <td>{{ teach.workdate|date:'Y-m-d' }}</td>
+              <td>
+                  {% for cur in login %}
+                        {{ cur.curname}}
+                  {% endfor %}
+              </td>
+                  <td><a href="/teacher/teachQuery/{{ teach.tid}}">删除</a></td>
+              </tr>
+            {% endfor %}
+          </table>
+      </div>
+
+    </form>
+{% endblock %}

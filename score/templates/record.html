@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+
+{% block right %}
+
+    <script type="text/javascript">
+        function testQery() {
+            var tid = document.getElementById('sid');
+            if(tid.value==''){
+                alert('编号不能为空');
+                return false
+            }
+            return true
+        }
+    </script>
+    <form action="/score/record/" method="get" id="record" >
+
+    <div style="margin-top: 50px" align="center">
+        <table cellspacing="5px">
+
+            <tr>
+                <td>学生编号：<input type="text" id="sid" name="sid" value="{{ stuid }}" onblur="testQery()"></td>
+                <td>&emsp;学生姓名：<input type="text" name="sname" ></td>
+            </tr>
+            <tr>
+                <td>操作员：&emsp;<input type="text" name="operator" value="管理员" ></td>
+                <td>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<input type="submit" value="查询" onclick="testQery()" >&emsp;<input type="reset" value="重置"></td>
+            </tr>
+        </table>
+    </div>
+
+    </form>
+
+    <form action="/score/record/" method="post">
+    <input type="hidden" name="sid" value="{{ stuid }}"/>
+    {% csrf_token %}
+            <hr style="border: 0.5px solid">
+
+    <div>
+        <table align="center" border="1px" cellpadding="9px" cellspacing="0px">
+            <tr style="height: 30px">
+                <td>考试科目</td>
+                <td>考试类别</td>
+                <td>考试日期</td>
+                <td>考试成绩</td>
+            </tr>
+            {% for cur in courses %}
+
+            <tr>
+                <td>{{ cur.curid.curname }}</td>
+                <td>{{ cur.curid.examtype }}</td>
+                <td>{{ cur.curid.examdate }}</td>
+
+                <td><input type="text" name="{{ cur.curid.curid }}" value="{{ cur.score }}"></td>
+            </tr>
+
+            {% endfor %}
+
+        </table>
+
+        <hr>
+                 <div align="center">
+                      <input type="submit" value="提交" align="center" >
+                 </div>
+
+
+
+</div>
+        </form>
+
+{% endblock %}

@@ -1,0 +1,78 @@
+
+{% extends 'base.html' %}
+{% block head %}
+        <script type="text/javascript">
+        function checkIn() {
+{#            alert(typeof $('#checkIn').serialize());#}
+            $.ajax({
+            //几个参数需要注意一下
+                type: "POST",//方法类型
+                dataType: "json",//预期服务器返回的数据类型
+                url: "/codeManage/majorCode/" ,//url
+                data: $('#checkIn').serialize(),
+                success: function (result) {
+{#                    console.log(result);//打印服务端返回的数据(调试用)#}
+                    if (result.key == '1') {
+                        alert("添加成功(*^▽^*)");
+                    }
+                    else {
+                        alert('有这个专业了')
+                    }
+                    ;
+                },
+                error : function() {
+                    alert("后台报错");
+                }
+            });
+        }
+
+    </script>
+
+{% endblock %}
+{% block right %}
+
+
+    <form id="checkIn" style="margin-top:2%" >
+    {% csrf_token %}
+    <table cellpadding="9" cellspacing="0" border="2"  align="center" style="text-align: center" >
+        <tr>
+            <td>专业代码</td>
+            <td><input type="text" name="mid"><span id="midspan">*必填*</span></td>
+        </tr>
+           <tr>
+            <td>专业名称</td>
+            <td><input type="text" name="mname"><span id="mnamespan">*必填*</span></td>
+        </tr>
+         </tr>
+        <tr>
+            <td>操作</td>
+            <td style="text-align: center">
+                <input type="reset" value="重置" >
+              <input type="button" value="提交" onclick="checkIn();" >
+            </td>
+        </tr>
+    </table>
+    </form>
+    <p align="center" style="font-weight: bold;color: #0044cc;font-size: large">-----------------专业代码维护------------------------</p>
+    <form action="" method="post">
+    {% csrf_token %}
+        <table cellspacing="0" cellpadding="12" align="center" style="text-align: center">
+            <tr>
+                <td>专业代码</td>
+                <td>专业名称</td>
+                <td>用户操作</td>
+            </tr>
+            {% for a in all  %}
+
+            <tr>
+                <td>{{ a.mid }}</td>
+                <td>{{ a.mname }}</td>
+                <td>
+                    <a href="/codeManage/majorCode/update/{{ a.mid }}/{{ a.mname }}"><input type="button" value="更改"></a>
+                   <a href="/codeManage/majorCode/delete/{{ a.mid }}"><input type="button" value="删除"></a>
+                </td>
+            </tr>
+             {% endfor %}
+        </table>
+    </form>
+{% endblock %}

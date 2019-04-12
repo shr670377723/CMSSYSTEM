@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% block right %}
+    <table cellpadding="9" cellspacing="0" border="1" style="width:1000px;" >
+        <form action="/archive/stuRegQuery/" method="post">
+            {% csrf_token %}
+            <td colspan=7 align="center">
+                查询条件：<select name="qconditon" id="">
+                                <option value="sid">学生编号</option>
+                                <option value="indate">入学日期</option>
+                                <option value="inscore">录取分数</option>
+                            </select>
+                运算符：<select name="oc" id="">
+                                <option value="__gt">大于</option>
+                                <option value="__lt">小于</option>
+                                <option value="==">等于</option>
+                                <option value="__gte">大于等于</option>
+                                <option value="__lte">小于等于</option>
+                            </select>
+                &emsp;<input type="text" name="condition">
+{#                <script>#}
+{#                    $.get('/archive/stuInfoMaintain/search/')#}
+{#                </script>#}
+                <input type="submit" value="查询">
+            </td>
+        </tr>
+            </form>
+        <tr align="center">
+           <td> 学生编号</td>
+            <td> 学生姓名</td>
+            <td> 身份证号</td>
+            <td> 出生日期</td>
+            <td> 入学日期</td>
+            <td>录取分数</td>
+            <td>经办人</td>
+        </tr>
+
+{% for stu in stu %}
+    {% if stu == '' %}
+        <tr align="center" style="display: none">
+    {% elif stu != '' %}
+        <tr align="center">
+    {% endif %}
+            <td> {{ stu.sid.sid}}</td>
+            <td> {{ stu.sid.sname }}</td>
+            <td> {{ stu.identitynum }}</td>
+            <td> {{ stu.birthdate|date:'Y-m-d' }}</td>
+            <td> {{ stu.sid.indate|date:'Y-m-d' }}</td>
+            <td > {{ stu.sid.inscore }}</td>
+            <td >{{ stu.sid.agent }} </td>
+     </tr>
+{% endfor %}
+
+    </table>
+{% endblock %}

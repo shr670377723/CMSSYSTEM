@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+{% block right %}
+    <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+    <head>
+      <title>提交表单页</title>
+        <script type="text/javascript">
+            function myCheck()
+            {
+               for(var i=0;i<document.form1.elements.length-1;i++)
+               {
+                  if(document.form1.elements[i].value=="")
+                  {
+                     alert("当前表单不能有空项");
+                     document.form1.elements[i].focus();
+                     return false;
+                  }
+               }
+               return true;
+
+            }
+        </script>
+    </head>
+    <form  name="form1" action="" method="post" style="margin-top: 5%">
+        {% csrf_token %}
+        <table style="text-align: center" align="center">
+            <tr>
+                <td style="font-weight: bold">学&emsp;&emsp;号：&emsp;<input type="text" name="sid"></td>
+                <td style="font-weight: bold">&emsp;&emsp;学生姓名：&emsp;<input type="text" name="sname"></td>
+            </tr>
+
+               <tr>
+                <td style="font-weight: bold">书&emsp;&emsp;号：&emsp;<input type="text" name="bid"></td>
+                <td style="font-weight: bold">&emsp;&emsp;书&emsp;&emsp;名：&emsp;<input type="text" name="bname"></td>
+                </tr>
+            <tr>
+                   <td style="font-weight: bold">借阅日期：&emsp;<input type="text" name="borrowdate"></td>
+            </tr>
+            <tr>
+                <td colspan="2" style="font-weight: bold">
+                    <input type="submit" value="归还">
+                    <input type="reset" value="重置">
+                </td>
+            </tr>
+        </table>
+    </form>
+    <form action="" method="post">
+    {% csrf_token %}
+        <table border="2" cellpadding="0" cellspacing="9" align="center" style="text-align:center;width:40%;margin-left: 40%">
+            <tr>
+                <td>学号</td>
+                <td>姓名</td>
+                <td>书号</td>
+                <td>书名</td>
+                <td>借阅日期</td>
+            </tr>
+            {% for br in borrow %}
+            <tr>
+                <td>{{ br.sid.sid.sid }}</td>
+                <td>{{ br.sid.sid.sname }}</td>
+                <td>{{ br.bid.bid }}</td>
+                <td>{{ br.bid.bname }}</td>
+                <td>{{ br.borrowdate|date:'Y年m月d日' }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </form>
+{% endblock %}
+</HTML>

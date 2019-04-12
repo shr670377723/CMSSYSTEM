@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% block right %}
+
+    <script type="text/javascript">
+        function testQery() {
+            var tid = document.getElementById('condition');
+            if(tid.value==''){
+                alert('编号不能为空');
+                return false
+            }
+            return true
+        }
+    </script>
+
+    <div style="margin-top: 50px;text-align:center" >
+    <form action="/score/query/" method="post">
+    {% csrf_token %}
+    <p>
+        请输入查询条件：<select name="sel" id="" style="height: auto">
+        <option value="sid">学生编号</option>
+        <option value="sname">学生姓名</option>
+    </select>
+        <input type="text" name="condition" id="condition" onblur="testQery()" style="height: auto">
+        <input type="submit" value="提交" onclick="testQery()">
+    </p>
+                <hr style="border: 0.5px solid">
+
+        <table border="1px" cellspacing="0px" cellpadding="9px" width="50%" align="center">
+            <tr>
+                <td>考试日期</td>
+                <td>考试类别</td>
+                <td>科目名称</td>
+                <td>学生编号</td>
+                <td>学生姓名</td>
+                <td>成绩</td>
+            </tr>
+            {% for stu in stus %}
+            <tr>
+                <td>{{ stu.curid.examdate|date:'Y-m-d' }}</td>
+                <td>{{ stu.curid.examtype }}</td>
+                <td>{{ stu.curid.curname }}</td>
+                <td>{{ stu.sid_id }}</td>
+                <td>{{ stu.sid.sid.sname }}</td>
+                <td>{{ stu.score }}</td>
+            </tr>
+          {% endfor %}
+        </table>
+        
+    </form>
+    </div>
+{% endblock %}

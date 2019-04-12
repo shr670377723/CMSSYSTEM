@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% block right %}
+    <form action="/library/borrowQuery/" method="post" style="margin-top: 10%">
+        {% csrf_token %}
+        <table cellpadding="9" cellspacing="0" align="center" style="text-align: center">
+            <tr>
+                <td>
+                    请输入查询条件：&emsp;<select name="select" >
+                    <option value="xh" name="xh">学号</option>
+                    <option value="sh" name="sh">书号</option>
+                    <option value="jyrq" name="jyrq">借阅日期</option>
+                    </select>
+{#                        <input type="date" name="all">#}
+                    <input type="text" name="all">
+                </td>
+                <td><input type="submit" value="提交" style="margin-top:-10px"></td>
+                <td><input type="button" value="显示全部" style="margin-top:-10px"></td>
+            </tr>
+        </table>
+    </form>
+    <form>
+        {% csrf_token %}
+
+        {% for c in cx %}
+        <table border="2" cellspacing="0" cellpadding="9" align="center" style="text-align: center;width: 50%">
+            <tr>
+                <td>学号</td>
+                <td>书号</td>
+                <td>书名</td>
+                <td>单价</td>
+                <td>借阅日期</td>
+                <td>操作员</td>
+            </tr>
+            <tr>
+                <td>{{ c.sid.sid.sid}}</td>
+                <td>{{ c.bid.bid }}</td>
+                <td>{{ c.bid.bname }}</td>
+                <td>{{ c.bid.price }}</td>
+                <td>{{ c.borrowdate|date:'Y年m月d日'}}</td>
+                <td>{{ c.operator }}</td>
+            </tr>
+        </table>
+        {% endfor %}
+    </form>
+{% endblock %}

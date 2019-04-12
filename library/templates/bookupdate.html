@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block right %}
+ <form  method= 'post'style="margin-top: 10%">
+    {% csrf_token %}
+        <table border="2" cellspacing="0" cellpadding="9" align="center"  style="text-align: center">
+            <tr>
+                <td>书号</td>
+                <td>书名</td>
+                <td>出版社</td>
+                <td>单价</td>
+                <td>库存</td>
+                <td>维护</td>
+            </tr>
+            <tr>
+                <td><input type="text" value="{{ all.bid }}" name="bookid" style="width: 100px"></td>
+                <td><input type="text" value="{{ all.bname }}" name="bookname"  style="width: 100px"></td>
+                <td><input type="text" value="{{ all.publication }}" name="bookp"  style="width: 100px"></td>
+                <td><input type="text" value="{{ all.price }}" name="bookprice"  style="width: 100px"></td>
+                <td><input type="text" value="{{ all.bnum }}" name="booknum" style="width: 100px"></td>
+                <td><input type="submit" value="提交"></td>
+            </tr>
+        </table>
+    </form>
+{% endblock %}

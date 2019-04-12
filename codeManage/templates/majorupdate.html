@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block right %}
+    <form action="/codeManage/majorCode/update/{{ all.mid }}/{{ all.mname }}/" method="post" style="margin-top: 4%">
+    {% csrf_token %}
+        <table border="2" cellspacing="0" cellpadding="9" align="center" style="text-align: center" >
+
+            <tr>
+                <td>专业代码</td>
+                <td><input type="text" name="mid" value="{{ all.mid }}"></td>
+            </tr>
+            <tr>
+                <td>专业名称</td>
+                <td><input type="text" name="mname" value="{{ all.mname }}"></td>
+            </tr>
+
+            <tr>
+                <td>操作</td>
+                <td>
+                    <input type="reset" value="重置">
+                    <input type="submit" value="更改">
+                </td>
+            </tr>
+        </table>
+    </form>
+{% endblock %}

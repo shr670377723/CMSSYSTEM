@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% block right %}
+
+    <form action="/library/bookBorrow/" method="post" style="margin-top: 5%">
+        {% csrf_token %}
+        <table style="text-align: center" align="center">
+            <tr>
+                <td style="font-weight: bold">学&emsp;&emsp;号：&emsp;<input type="text" name="sid"></td>
+                <td style="font-weight: bold">&emsp;&emsp;学生姓名：&emsp;<input type="text" name="sname"></td>
+            </tr>
+
+               <tr>
+                <td style="font-weight: bold">书&emsp;&emsp;号：&emsp;<input type="text" name="bid"></td>
+                <td style="font-weight: bold">&emsp;&emsp;书&emsp;&emsp;名：&emsp;<input type="text" name="bname"></td>
+                </tr>
+            <tr>
+                <td style="font-weight: bold">借阅日期：&emsp;<input type="date" name="borrowdate"></td>
+                <td style="font-weight: bold">&emsp;&emsp;操作员：&emsp;&emsp;<input type="text" name="operator"></td>
+                </tr>
+
+
+{#                <td style="font-weight: bold" colspan="2" >图书简介：&emsp;<textarea style="height: 80px;width: 540px" name="tsjj"></textarea> </td>#}
+            </tr>
+
+            <tr>
+                <td colspan="2" style="font-weight: bold">
+                     <br><br>
+
+                    <input type="submit" value="保存">
+                    <input type="reset" value="重置">
+                </td>
+            </tr>
+        </table>
+    </form>
+    <form action="" method="post">
+    {% csrf_token %}
+        <table border="2" cellpadding="0" cellspacing="9" align="center" style="text-align:center;width:40%;margin-left: 40%">
+            <tr>
+                <td>学号</td>
+                <td>姓名</td>
+                <td>书号</td>
+                <td>书名</td>
+                <td>借阅日期</td>
+            </tr>
+            <tr>
+                {% for b in borrow %}
+                <td>{{ b.sid.sid.sid}}</td>
+                <td>{{ b.sid.sid.sname }}</td>
+                <td>{{ b.bid.bid }}</td>
+                <td>{{ b.bid.bname }}</td>
+                <td>{{ b.borrowdate }}</td>
+                {% endfor %}
+            </tr>
+        </table>
+    </form>
+{% endblock %}

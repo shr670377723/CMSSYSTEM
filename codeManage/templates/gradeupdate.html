@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block right %}
+    <form action="" method="post" style="margin-top: 4%">
+    {% csrf_token %}
+        <table border="2" cellspacing="0" cellpadding="9" align="center" style="text-align: center" >
+
+            <tr>
+                <td>年级代码</td>
+                <td><input type="text" name="gcode" value="{{ all.gid }}"></td>
+            </tr>
+            <tr>
+                <td>年级名称</td>
+                <td><input type="text" name="gname" value="{{ all.gname }}"></td>
+            </tr>
+
+            <tr>
+                <td>操作</td>
+                <td>
+                    <input type="reset" value="重置">
+                    <input type="submit" value="更改">
+                </td>
+            </tr>
+        </table>
+    </form>
+{% endblock %}

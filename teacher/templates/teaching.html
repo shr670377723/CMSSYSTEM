@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% block right %}
+    <!DOCTYPE html>
+    <html>
+    <body>
+    <form action="/teacher/teaching/" method="post">
+        {% csrf_token %}
+        <div style="text-align: center">
+            <br><br>
+            ≡≡≡教师任课表≡≡≡
+            <br><br>
+        </div>
+        <div style="text-align: center" id="show">
+            教师编号: <input type="text" name="tid" >&emsp;
+            任课科目:
+            <select name="course" id="">
+                <option value="">---请选择---</option>
+                {% for t in t %}
+                    <option value="{{ t.curid.curid }}">{{ t.curid.curname }}</option>
+                {% endfor %}
+            </select> &emsp;
+        </div>
+        <br>
+        <table border="1px" width="900" align="center" style="text-align: center;font-size: 18px">
+            <tr>
+                <td>教师姓名</td>
+                <td>性别</td>
+                <td>年龄</td>
+                <td>学历</td>
+                <td>授课专业</td>
+                <td>教授课程</td>
+            </tr>
+
+            {% for tc in tc %}
+                <tr>
+                    <td>{{ tc.tid.tname }}</td>
+                    <td>{{ tc.tid.gender }}</td>
+                    <td>{{ tc.tid.age }}</td>
+                    <td>{{ tc.tid.edu }}</td>
+                    <td>{{ tc.tid.mid.mname }}</td>
+                    <td>{{ tc.curid.curname }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+        <br>
+        <div style="text-align: center">
+            <input type="submit" value="查询"> &emsp;&emsp;
+            <input type="reset" value="重置">
+        </div>
+    </form>
+    </body>
+    </html>
+{% endblock %}

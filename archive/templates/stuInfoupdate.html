@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+{% block right %}
+    <table cellpadding="9" cellspacing="0">
+        <form action="/archive/stuInfo/" method="post">
+        {% csrf_token %}
+            <tr>
+                <td>
+                <p style="display: inline;color:red" >学生班级&emsp;</p>
+                    <select name="sclass" >
+                        <option value="">请选择班级</option>
+                        {% for cls in Clazz %}
+                            {% if stu.sid.cname.cid == cls.cid  %}
+                            <option value={{ cls.cid }} selected='selected'>{{ cls.cname }}</option>
+                            {% endif %}
+                            <option value={{ cls.cid }}>{{ cls.cname }}</option>
+                        {% endfor %}
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>学生编号&emsp;<input type="text" name="sid" value={{ stu.sid.sid }} ></td>
+                <td> 学生姓名&emsp;<input type="text" name="sname" value={{ stu.sid.sname }} ></td>
+            </tr>
+            <tr>
+                <td>
+                    学生性别&emsp;
+                    {% if stu.gender == '男' %}
+                        <input type="radio" name="gender" id="sgender" checked value="男">男
+                        <input type="radio" name="gender" id="sgender" value="女">女
+                    {% else %}
+                        <input type="radio" name="gender" id="sgender"  value="男">男
+                        <input type="radio" name="gender" id="sgender" checked value="女">女
+                    {% endif %}
+                </td>
+                <td>学生年龄&emsp;<input type="text" name="sage" value={{ stu.age }}></td>
+            </tr>
+            <tr>
+                <td>身份证号&emsp;<input type="text" name="sidnum" value={{ stu.identitynum }}></td>
+                <td> 出生日期&emsp;<input type="date" name="sbirthdate" value={{ stu.birthdate|date:'Y-m-d' }} ></td>
+            </tr>
+            <tr>
+                <td> 家庭地址&emsp;<input type="text" name="saddress" value={{ stu.address }}>
+                </td>
+                <td>家庭电话&emsp;<input type="text" name="sphone" value="{{ stu.tel }}"></td>
+            </tr>
+            <tr>
+                <td>政治面貌
+                    <select name="sstatus" style="width:84px;">
+                        {% if stu.politicstatus == '党员' %}
+                            <option value="党员" selected="selected">党员</option>
+                            <option value="共青团员">共青团员</option>
+                            <option value="群众">群众</option>
+                        {% elif stu.politicstatus == '共青团员' %}
+                            <option value="党员" >党员</option>
+                            <option value="共青团员" selected="selected">共青团员</option>
+                            <option value="群众">群众</option>
+                        {% else %}
+                            <option value="党员" >党员</option>
+                            <option value="共青团员" >共青团员</option>
+                            <option value="群众" selected="selected">群众</option>
+                        {% endif %}
+                    </select>
+                    健康状况
+                    <select name="shealth" style="width:84px">
+                        {% if stu.health == '优' %}
+                            <option value="优" selected="selected">优</option>
+                            <option value="良">良</option>
+                            <option value="差">差</option>
+                        {% elif stu.health == '良' %}
+                            <option value="优" >优</option>
+                            <option value="良" selected="selected">良</option>
+                            <option value="差">差</option>
+                        {% else %}
+                            <option value="优" >优</option>
+                            <option value="良" >良</option>
+                            <option value="差" selected="selected">差</option>
+                        {% endif %}
+                    </select>
+                </td>
+                <td>
+                    <button type="submit">提交</button>
+                    <button type="reset">重置</button>
+                </td>
+            </tr>
+        </form>
+    </table>
+{% endblock %}

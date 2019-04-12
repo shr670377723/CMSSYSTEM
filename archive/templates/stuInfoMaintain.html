@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+{#{% block head %}#}
+{##}
+{#    <script type="text/javascript">#}
+{#        function checkIn() {#}
+{#             $.post('/archive/stuInfoMaintain/',{'condition':$('#condition').val(),'qcondition':$('#qconditon').val()},function(result){#}
+{#                 var stu = JSON.parse(result.stu);#}
+{#                 var ad = JSON.parse(result.ad);#}
+{#                 console.log(stu[0].fields);#}
+{#                 console.log(ad[0].pk);#}
+{#                 console.log(ad[0].fields);#}
+{#                 alert(stu[0].fields.address);#}
+{#                 if (1 > 0) {#}
+{#                     alert('222');#}
+{#                     $('#trId').after("<tr><td>" + ad[0].pk + "</td><td>" + ad[0].fields.sname + "</td><td>"+stu[0].fields.identitynum+"</td><td>"+stu[0].fields.birthday+"</td><td>"+stu[0].fields.adress+"</td><td><a href='#'>维护</a></td></tr>")#}
+{##}
+{##}
+{#                     $('#trId').after('<tr><td colspan="6">hello</td></tr>');#}
+{#                 }#}
+{#             });}#}
+{#    </script>#}
+{#{% endblock %}#}
+{{ stu }}
+{% block right %}
+    <table cellpadding="9" cellspacing="0" border="1" style="margin:auto 0;">
+        <form action="/archive/stuInfoMaintain/" method="post">
+            {% csrf_token %}
+            <td colspan=6 align="center">
+                查询条件：<select name="qconditon">
+                <option value="sname">学生姓名</option>
+                <option value="sid">学生编号</option>
+                <option value="identityNum">身份证号</option>
+            </select>
+                &emsp;<input type="text" name="condition">
+                {#                <script>#}
+                {#                    $.get('/archive/stuInfoMaintain/search/')#}
+                {#                </script>#}
+                <input type="submit" value="查询" >
+            </td>
+            </tr>
+        </form>
+        <tr align="center" id="trId">
+            <th> 学生编号</th>
+            <th> 学生姓名</th>
+            <th> 身份证号</th>
+            <th> 出生日期</th>
+            <th> 家庭地址</th>
+            <th>用户选择</th>
+        </tr>
+
+        {% for stu in stu %}
+            {% if stu == '' %}
+                <tr align="center" style="display: none">
+            {% elif stu != '' %}
+                <tr align="center">
+            {% endif %}
+        <td> {{ stu.sid.sid }}</td>
+        <td> {{ stu.sid.sname }}</td>
+        <td> {{ stu.identitynum }}</td>
+        <td> {{ stu.birthdate|date:'Y-m-d' }}</td>
+        <td> {{ stu.address }}</td>
+        <td><a href="/archive/stuInfo/update/{{ stu.sid.sid }}"><input type="button" value="维护"></a></td>
+        </tr>
+        {% endfor %}
+    </table>
+{% endblock %}

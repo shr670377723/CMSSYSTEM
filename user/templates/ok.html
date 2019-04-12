@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script type="text/javascript">
+        onload = function () {
+            setInterval(go, 1000);
+        };
+        var x = 2; //利用了全局变量来执行
+        function go() {
+            x--;
+            if (x > 0) {
+                document.getElementById("sp").innerHTML = x; //每次设置的x的值都不一样了。
+            } else {
+                location.href = '';
+            }
+        }
+    </script>
+</head>
+<body>
+    <div style="font-size: 50px">
+        注册成功，三秒后自动跳回注册页面
+    </div>
+</body>
+</html>

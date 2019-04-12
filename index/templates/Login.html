@@ -1,0 +1,51 @@
+<!DOCTYPE HTML>
+{% load staticfiles %}
+<html>
+<head>
+    <title>Home</title>
+    <!-- Custom Theme files -->
+    <link href="{% static '' %}style.css" rel="stylesheet" type="text/css" media="all"/>
+    <!-- Custom Theme files -->
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="keywords"
+          content="Login form web template, Sign up Web Templates, Flat Web Templates, Login signup Responsive web template, Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyErricsson, Motorola web design"/>
+</head>
+{#   <script type="text/javascript">#}
+{#    function checkId() {#}
+{#        var id = $('#qqq').val()#}
+{#        if (id == ''){#}
+{#            alert('编号不能空')#}
+{#        }#}
+{#    }#}
+{#    </script>#}
+<body style="background:dimgrey">
+<div class="login">
+    <h2>欢&nbsp;迎&nbsp;光&nbsp;临</h2>
+    <div class="login-top">
+        <h1>用户登录</h1>
+        <form action='/' method="post">
+            {% csrf_token %}
+            <input type="text" value="请输入用户名和密码" name="uname" id="qqq" onfocus="this.value = '';"
+                   onblur="if (this.value == '') {this.value = '用户名';}">
+            <input type="password" value="" name="pwd" id="qqq" onfocus="this.value = '';"
+                   onblur="if (this.value == '') {this.value = 'password';}">
+
+            <div class="forgot">
+                <input type="submit" value="Login">
+            </div>
+        </form>
+    </div>
+    <div class="login-bottom">
+        <h3>若忘记密码请联系管理员</h3>
+    </div>
+</div>
+<div class="copyright">
+    <p>Copyright &copy; 2015.Company name All rights reserved. ---- 制作团队 <a href="http://www.baidu.com/"
+                                                                            target="_blank">旺旺雪饼</a></p>
+</div>
+
+
+</body>
+</html>

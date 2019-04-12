@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block right %}
+    <script type="text/javascript" src="{% static 'jquery-1.9.1.js' %}">
+
+    </script>
+    <div>
+
+            <input type="text" id="neirong" name="neirong">
+            <input type="submit" value="提交" onclick="test()">
+            {% csrf_token %}
+    </div>
+    <script>
+        function test() {
+           {#$.ajax({#}
+           {#         url:'/user/usertest/',#}
+           {#         type:'POST',#}
+           {#         data:{'uname':$('#neirong').val()},#}
+           {#         async:true,#}
+                    {#打开异步传输#}
+           {#         chace:false,#}
+                    {#result用来接收结果#}
+           {#         success:function (result) {#}
+           {#             alert(result.neirong);#}
+           {#         }#}
+           {#     });#}
+           {# }#}
+
+            var csrf = $('input[name=csrfmiddlewaretoken]').val();
+            $.post('/user/usertest/',
+                {'uname':$('#neirong').val(),
+                'csrfmiddlewaretoken':csrf},
+                function (result) {
+                alert(result.hello);
+            });
+        }
+    </script>
+
+{% endblock %}

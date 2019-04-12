@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% block right %}
+    <table cellpadding="9" cellspacing="0" style="margin-left: 30%;">
+        <form action="/archive/teachInfo/" method="post">
+        {% csrf_token %}
+            <tr>
+                <td>教师姓名&emsp;<input type="text" name="tname"  ></td>
+                <td> 年龄&emsp;&emsp;&emsp;<input type="text" name="tage" ></td>
+            </tr>
+            <tr>
+                <td>
+                    性别&emsp;&emsp;&emsp;
+                    <input type="radio" name="gender"  value="男">男
+                    <input type="radio" name="gender"  value="女">女
+                </td>
+                <td>婚否&emsp;&emsp;&emsp;
+                    <input type="radio" name="marry"  value="已婚">已婚
+                    <input type="radio" name="marry"  value="未婚">未婚
+                </td>
+            </tr>
+            <tr>
+                <td>政治面貌&emsp;<input type="text" name="status"></td>
+                <td> 民族&emsp;&emsp;&emsp;<input type="text" name="nation"></td>
+            </tr>
+            <tr>
+                <td> 学历&emsp;&emsp;&emsp;<input type="text" name="edbackground"></td>
+                <td>出生日期&emsp;<input type="date" name="birthday"></td>
+            </tr>
+            <tr>
+                <td> 身份证号&emsp;<input type="text" name="tidnum"></td>
+                <td>联系电话&emsp;<input type="text" name="tphone"></td>
+            </tr>
+            <tr>
+                 <td> 工作日期&emsp;<input type="date" name="tdate"></td>
+                <td>授课专业&emsp;
+                    <select name="tcourse" style="width:84px;">
+                        {% for m in major %}
+                            <option value={{ m.mid }}>{{ m.mname }}</option>
+                        {% endfor %}
+                    </select>
+                </td>
+                <tr>
+                    <td>
+                        工作简介&emsp;
+                        <input type="text" name="work"  style="height: 120px;width: 400px;">
+                    </td>
+                </tr>
+                <td align="center">
+                    <button type="submit">提交</button>
+                    <button type="reset">重置</button>
+                </td>
+            </tr>
+        </form>
+    </table>
+{% endblock %}
